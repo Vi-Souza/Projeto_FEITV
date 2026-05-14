@@ -10,4 +10,12 @@
         <maven.compiler.release>25</maven.compiler.release>
         <exec.mainClass>com.mycompany.projetofeitv.ProjetoFEITV</exec.mainClass>
     </properties>
+    <dependencies>
+        <!-- Driver JDBC do PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+    </dependencies>
 </project>

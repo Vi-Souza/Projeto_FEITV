@@ -1,73 +1,73 @@
 package com.mycompany.projetofeitv.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Classe Usuario
- * Representa um usuário da plataforma FEItv.
- * 
- * Cada usuário possui:
- * - um id único
- * - nome de usuário (login)
- * - senha
- * - email
- * 
- * Futuramente, podemos adicionar mais informações como data de cadastro.
+ * Classe que representa um Usuário dentro do sistema FEItv.
+ * Cada usuário possui informações básicas de login e pode
+ * gerenciar suas próprias listas de reprodução.
  */
 public class Usuario {
-    
-    // Atributos (características do usuário)
-    private int id;             // identificador único no banco de dados
-    private String nome;        // nome do usuário
-    private String email;       // email do usuário
-    private String senha;       // senha para login
-    
-    // Construtor — usado para criar objetos Usuario
+
+    // Identificador único do usuário (chave primária no banco)
+    private int id;
+
+    // Nome do usuário (exibido na interface)
+    private String nome;
+
+    // Email do usuário (usado para login)
+    private String email;
+
+    // Senha do usuário (usada para autenticação)
+    private String senha;
+
+    // Coleção de listas de reprodução criadas pelo usuário
+    private List<ListaReproducao> listasReproducao;
+
+    /**
+     * Construtor da classe Usuario.
+     * Inicializa os atributos básicos e cria a lista de reprodução vazia.
+     */
     public Usuario(int id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-    }
-    
-    // Métodos Getters e Setters — permitem acessar e modificar os atributos
-    public int getId() {
-        return id;
+        this.listasReproducao = new ArrayList<>();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    // ------------------- GETTERS -------------------
+
+    public int getId() { return id; }
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+    public String getSenha() { return senha; }
+    public List<ListaReproducao> getListasReproducao() { return listasReproducao; }
+
+    // ------------------- SETTERS -------------------
+
+    public void setNome(String nome) { this.nome = nome; }
+    public void setEmail(String email) { this.email = email; }
+    public void setSenha(String senha) { this.senha = senha; }
+
+    // ------------------- MÉTODOS DE NEGÓCIO -------------------
+
+    /**
+     * Cria uma nova lista de reprodução e adiciona ao usuário.
+     * @param nomeLista Nome da lista de reprodução
+     */
+    public void criarLista(String nomeLista) {
+        listasReproducao.add(new ListaReproducao(nomeLista));
+        System.out.println("Lista criada: " + nomeLista);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    
-    // Método toString — útil para imprimir informações do usuário
-    @Override
-    public String toString() {
-        return "Usuario{" + 
-               "id=" + id + 
-               ", nome='" + nome + '\'' + 
-               ", email='" + email + '\'' + 
-               '}';
+    /**
+     * Remove uma lista de reprodução pelo nome.
+     * @param nomeLista Nome da lista a ser removida
+     */
+    public void removerLista(String nomeLista) {
+        listasReproducao.removeIf(lista -> lista.getNome().equalsIgnoreCase(nomeLista));
+        System.out.println("Lista removida: " + nomeLista);
     }
 }
