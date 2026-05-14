@@ -49,4 +49,9 @@ public class VideoController {
         videos.remove(video);
         System.out.println("Vídeo removido: " + video.getTitulo());
     }
+    
+    // Novo método para retornar a lista de vídeos (usado na VideoView)
+    public ArrayList<Video> getVideos() {
+        return videos;
+    }
 }
