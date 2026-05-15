@@ -1,4 +1,4 @@
-🎬 Projeto FEITV
+🎬 
 O Projeto FEITV é uma aplicação Java desenvolvida para simular uma plataforma de streaming, permitindo que usuários se cadastrem, façam login, visualizem vídeos (filmes e séries), curtam conteúdos e gerenciem seus favoritos.
 O sistema foi construído com foco em organização de camadas, boas práticas de programação e integração com banco de dados PostgreSQL.
 
