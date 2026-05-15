@@ -1,23 +1,21 @@
 package com.mycompany.projetofeitv;
 
-/**
- * Classe principal do projeto FEItv.
- * Aqui é onde o programa começa a ser executado.
- * 
- * @author Vitor
- */
-
-import com.mycompany.projetofeitv.controller.UsuarioController;
 import com.mycompany.projetofeitv.view.LoginView;
 
+/**
+ * Classe principal do projeto FEITV.
+ * Responsável por iniciar a aplicação.
+ */
 public class ProjetoFEITV {
-    public static void main(String[] args) {
-        // Cria o controller de usuários
-        UsuarioController usuarioController = new UsuarioController();
 
-        // Abre a tela de login como ponto inicial do sistema
-        LoginView loginView = new LoginView(usuarioController);
-        loginView.setVisible(true);
+    public static void main(String[] args) {
+        // Inicia a aplicação mostrando a tela de Login
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new LoginView().setVisible(true);
+            }
+        });
     }
 }
 

@@ -1,83 +1,66 @@
 package com.mycompany.projetofeitv.view;
 
 import com.mycompany.projetofeitv.controller.UsuarioController;
-import com.mycompany.projetofeitv.controller.VideoController;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Tela de Login
+ */
 public class LoginView extends JFrame {
 
     private UsuarioController usuarioController;
-    private JTextField emailField;
-    private JPasswordField senhaField;
-    private JButton loginButton;
-    private JButton cadastrarButton;
 
-    public LoginView(UsuarioController usuarioController) {
-        this.usuarioController = usuarioController;
+    public LoginView() {
+        usuarioController = new UsuarioController();
 
-        setTitle("FEItv - Login");
-        setSize(300, 200);
+        setTitle("Login - Projeto FEITV");
+        setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        emailField = new JTextField(20);
-        senhaField = new JPasswordField(20);
-        loginButton = new JButton("Login");
-        cadastrarButton = new JButton("Cadastrar");
+        JLabel lblEmail = new JLabel("Email:");
+        JTextField txtEmail = new JTextField(20);
+
+        JLabel lblSenha = new JLabel("Senha:");
+        JPasswordField txtSenha = new JPasswordField(20);
+
+        JButton btnLogin = new JButton("Entrar");
+        JButton btnCadastro = new JButton("Cadastrar");
 
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Email:"));
-        panel.add(emailField);
-        panel.add(new JLabel("Senha:"));
-        panel.add(senhaField);
-        panel.add(loginButton);
-        panel.add(cadastrarButton);
+        panel.add(lblEmail);
+        panel.add(txtEmail);
+        panel.add(lblSenha);
+        panel.add(txtSenha);
+        panel.add(btnLogin);
+        panel.add(btnCadastro);
 
         add(panel);
 
-        // Botão de login
-        loginButton.addActionListener(new ActionListener() {
+        btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = emailField.getText();
-                String senha = new String(senhaField.getPassword());
+                String email = txtEmail.getText();
+                String senha = new String(txtSenha.getPassword());
 
-                boolean sucesso = usuarioController.login(email, senha);
-                if (sucesso) {
+                int idUsuario = usuarioController.login(email, senha);
+                if (idUsuario != -1) {
                     JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
-                    dispose(); // fecha a tela de login
-
-                    // Abre a tela de vídeos
-                    VideoController videoController = new VideoController();
-                    VideoView videoView = new VideoView(videoController);
-                    videoView.setVisible(true);
+                    new MenuPrincipalView(idUsuario).setVisible(true);
+                    dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Email ou senha incorretos.");
+                    JOptionPane.showMessageDialog(null, "Email ou senha inválidos.");
                 }
             }
         });
 
-        // Botão de cadastro
-        cadastrarButton.addActionListener(new ActionListener() {
+        btnCadastro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = emailField.getText();
-                String senha = new String(senhaField.getPassword());
-
-                if (email.isEmpty() || senha.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-                    return;
-                }
-
-                usuarioController.cadastrarUsuario(
-                        new com.mycompany.projetofeitv.model.Usuario(
-                                usuarioController.hashCode(), email, email, senha
-                        )
-                );
-                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+                new CadastroView().setVisible(true);
+                dispose();
             }
         });
     }

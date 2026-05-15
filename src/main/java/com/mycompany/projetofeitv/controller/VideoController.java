@@ -1,57 +1,43 @@
 package com.mycompany.projetofeitv.controller;
 
+import com.mycompany.projetofeitv.dao.VideoDAO;
 import com.mycompany.projetofeitv.model.Video;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Classe VideoController
- * Responsável por gerenciar os vídeos no sistema FEItv.
- * 
- * Aqui simulamos um "banco de dados" usando ArrayList.
- * Futuramente, vamos substituir pelo PostgreSQL via JDBC.
+ * Controller responsável por intermediar operações de Vídeo
+ * entre a camada de View e o DAO.
  */
 public class VideoController {
-    
-    // Lista que simula o banco de dados de vídeos
-    private ArrayList<Video> videos;
-    
-    // Construtor
+
+    private VideoDAO videoDAO;
+
     public VideoController() {
-        this.videos = new ArrayList<>();
+        this.videoDAO = new VideoDAO();
     }
-    
-    // Método para cadastrar um novo vídeo
-    public void cadastrarVideo(Video video) {
-        videos.add(video);
-        System.out.println("Vídeo cadastrado: " + video.getTitulo());
+
+    /**
+     * Lista todos os vídeos disponíveis.
+     * @return Lista de objetos Video
+     */
+    public List<Video> listarVideos() {
+        return videoDAO.listarVideos();
     }
-    
-    // Método para buscar vídeo pelo título
-    public Video buscarVideo(String titulo) {
-        for (Video v : videos) {
-            if (v.getTitulo().equalsIgnoreCase(titulo)) {
-                return v;
-            }
-        }
-        return null; // retorna null se não encontrar
+
+    /**
+     * Busca vídeos pelo título.
+     * @param titulo Título ou parte do título
+     * @return Lista de objetos Video
+     */
+    public List<Video> buscarPorTitulo(String titulo) {
+        return videoDAO.buscarPorTitulo(titulo);
     }
-    
-    // Método para listar todos os vídeos
-    public void listarVideos() {
-        System.out.println("Lista de vídeos cadastrados:");
-        for (Video v : videos) {
-            System.out.println(v);
-        }
+
+    public void curtirVideo(int idVideo) {
+        videoDAO.incrementarCurtidas(idVideo);
     }
-    
-    // Método para remover vídeo
-    public void removerVideo(Video video) {
-        videos.remove(video);
-        System.out.println("Vídeo removido: " + video.getTitulo());
-    }
-    
-    // Novo método para retornar a lista de vídeos (usado na VideoView)
-    public ArrayList<Video> getVideos() {
-        return videos;
+
+    public void descurtirVideo(int idVideo) {
+        videoDAO.decrementarCurtidas(idVideo);
     }
 }

@@ -1,50 +1,37 @@
 package com.mycompany.projetofeitv.controller;
 
+import com.mycompany.projetofeitv.dao.UsuarioDAO;
 import com.mycompany.projetofeitv.model.Usuario;
-import java.util.ArrayList;
 
 /**
- * Classe UsuarioController
- * Responsável por gerenciar os usuários da plataforma FEItv.
- * 
- * Funções principais:
- * - Cadastrar novo usuário
- * - Fazer login
- * - Listar usuários cadastrados
+ * Controller responsável por intermediar operações de Usuário
+ * entre a camada de View e o DAO.
  */
 public class UsuarioController {
-    
-    // Lista que simula o banco de dados de usuários
-    private ArrayList<Usuario> usuarios;
-    
-    // Construtor
+
+    private UsuarioDAO usuarioDAO;
+
     public UsuarioController() {
-        this.usuarios = new ArrayList<>();
+        this.usuarioDAO = new UsuarioDAO();
     }
-    
-    // Método para cadastrar novo usuário
+
     public void cadastrarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
-        System.out.println("Usuário cadastrado: " + usuario.getNome());
+        usuarioDAO.cadastrarUsuario(usuario);
     }
-    
-    // Método para login
-    public boolean login(String email, String senha) {
-        for (Usuario u : usuarios) {
-            if (u.getEmail().equalsIgnoreCase(email) && u.getSenha().equals(senha)) {
-                System.out.println("Login realizado com sucesso! Bem-vindo, " + u.getNome());
-                return true;
-            }
-        }
-        System.out.println("Falha no login: email ou senha incorretos.");
-        return false;
+
+    /**
+     * Realiza login e retorna o ID do usuário logado.
+     * @return ID do usuário se login for válido, -1 caso contrário
+     */
+    public int login(String email, String senha) {
+        return usuarioDAO.autenticarUsuario(email, senha);
     }
-    
-    // Método para listar todos os usuários
-    public void listarUsuarios() {
-        System.out.println("Lista de usuários cadastrados:");
-        for (Usuario u : usuarios) {
-            System.out.println(u);
-        }
+
+    public void atualizarUsuario(Usuario usuario) {
+        usuarioDAO.atualizarUsuario(usuario);
+    }
+
+    public void excluirUsuario(int idUsuario) {
+        usuarioDAO.excluirUsuario(idUsuario);
     }
 }
