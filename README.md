@@ -23,35 +23,6 @@ DAO	Responsável pela comunicação com o banco de dados PostgreSQL.
 Controller	Intermedia as chamadas entre a View e o DAO, aplicando regras de negócio.
 View	Interface gráfica construída com Swing, permitindo interação do usuário.
 
-
-📂 Estrutura de Pastas
-Código
-src/
- └── com/mycompany/projetofeitv/
-     ├── model/
-     │   ├── Usuario.java
-     │   ├── Video.java
-     │   ├── Filme.java
-     │   ├── Serie.java
-     │   └── ListaReproducao.java
-     │
-     ├── dao/
-     │   ├── ConexaoBD.java
-     │   ├── UsuarioDAO.java
-     │   ├── VideoDAO.java
-     │   └── FavoritosDAO.java
-     │
-     ├── controller/
-     │   ├── UsuarioController.java
-     │   ├── VideoController.java
-     │   └── FavoritosController.java
-     │
-     ├── view/
-     │   ├── LoginView.java
-     │   ├── CadastroView.java
-     │   └── MenuPrincipalView.java
-     │
-     └── ProjetoFEITV.java
 🧠 Funcionalidades
 Cadastro de Usuário:  
 Permite criar novos usuários com nome, email e senha.
